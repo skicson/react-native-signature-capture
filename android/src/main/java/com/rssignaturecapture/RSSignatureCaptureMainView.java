@@ -1,33 +1,28 @@
 package com.rssignaturecapture;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.os.Environment;
+import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.facebook.react.uimanager.ThemedReactContext;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.ByteArrayOutputStream;
-
-import android.util.Base64;
-
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.os.Environment;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.LinearLayout;
-
-import android.app.Activity;
-import android.content.pm.ActivityInfo;
-import java.lang.Boolean;
 
 public class RSSignatureCaptureMainView extends LinearLayout implements OnClickListener,RSSignatureCaptureView.SignatureCallback {
   LinearLayout buttonsLayout;
@@ -40,6 +35,7 @@ public class RSSignatureCaptureMainView extends LinearLayout implements OnClickL
   Boolean showBorder = true;
   Boolean showNativeButtons = true;
   Boolean showTitleLabel = true;
+  Boolean rotateImage = false;
   int maxSize = 500;
 
   public RSSignatureCaptureMainView(Context context, Activity activity) {
@@ -57,10 +53,6 @@ public class RSSignatureCaptureMainView extends LinearLayout implements OnClickL
 
     setLayoutParams(new android.view.ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
         ViewGroup.LayoutParams.MATCH_PARENT));
-  }
-
-  public RSSignatureCaptureView getSignatureView() {
-    return signatureView;
   }
 
   public void setSaveFileInExtStorage(Boolean saveFileInExtStorage) {
@@ -85,6 +77,9 @@ public class RSSignatureCaptureMainView extends LinearLayout implements OnClickL
     } else {
       buttonsLayout.setVisibility(View.GONE);
     }
+  }
+  public void setRotateImage(Boolean rotateImage) {
+    this.rotateImage = rotateImage;
   }
 
   public void setMaxSize(int size) {
@@ -170,9 +165,15 @@ public class RSSignatureCaptureMainView extends LinearLayout implements OnClickL
       }
 
 
+
       ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-      Bitmap resizedBitmap = getResizedBitmap(this.signatureView.getSignature());
-      resizedBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+      Bitmap workingBitmap = getResizedBitmap(this.signatureView.getSignature());
+      if (this.rotateImage){
+        Matrix matrix = new Matrix();
+        matrix.postRotate(-90);
+        workingBitmap = Bitmap.createBitmap(workingBitmap, 0, 0, workingBitmap.getWidth(), workingBitmap.getHeight(), matrix, true);
+      }
+      workingBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
 
 
       byte[] byteArray = byteArrayOutputStream.toByteArray();

@@ -14,7 +14,8 @@
 	UIButton *saveButton;
 	UIButton *clearButton;
 	UILabel *titleLabel;
-	BOOL _rotateClockwise;
+    BOOL _rotateClockwise;
+    BOOL _rotateImage;
 	BOOL _square;
 	BOOL _showBorder;
 	BOOL _showNativeButtons;
@@ -162,7 +163,9 @@
 - (void)setRotateClockwise:(BOOL)rotateClockwise {
 	_rotateClockwise = rotateClockwise;
 }
-
+- (void)setRotateImage:(BOOL)rotateImage {
+    _rotateImage = rotateImage;
+}
 - (void)setSquare:(BOOL)square {
 	_square = square;
 }
@@ -186,7 +189,7 @@
 -(void) saveImage {
 	saveButton.hidden = YES;
 	clearButton.hidden = YES;
-	UIImage *signImage = [self.sign signatureImage: _rotateClockwise withSquare:_square];
+	UIImage *signImage = [self.sign signatureImage: _rotateClockwise || _rotateImage withSquare:_square];
 
 	saveButton.hidden = NO;
 	clearButton.hidden = NO;

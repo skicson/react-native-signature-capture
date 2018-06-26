@@ -111,9 +111,11 @@ class CustomComponent extends Component {
 
 + **showTitleLabel** : If this props is made to true, it will display the "x_ _ _ _ _ _ _ _ _ _ _" placeholder indicating where to sign.
 
-+ **viewMode** : "portrait" or "landscape" change the screen orientation based on boolean value
++ **viewMode** : "portrait" or "landscape" change the screen orientation based on boolean value (Android only)
 
 + **maxSize**  : sets the max size of the image maintains aspect ratio, default is 500
+
++ **rotateImage**  : If this props is true, the image is rotated 90 degrees
 
 ### Methods
 
