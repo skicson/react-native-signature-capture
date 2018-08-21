@@ -295,7 +295,7 @@ static PPSSignaturePoint ViewPointToGL(CGPoint viewPoint, CGRect bounds, GLKVect
 	UIImage *snapshot = [self snapshot];
 	[self erase];
 	
-	if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
+	/*if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
 		//signature
 		if (square) {
 			signatureImg = [self reduceImage:snapshot toSize: CGSizeMake(400.0f, 400.0f)];
@@ -304,7 +304,7 @@ static PPSSignaturePoint ViewPointToGL(CGPoint viewPoint, CGRect bounds, GLKVect
 			signatureImg = snapshot;
 		}
 	}
-	else {
+	else {*/
 		//rotate iphone signature - iphone's signature screen is always landscape
 		
 		if (rotatedImage) {
@@ -325,7 +325,7 @@ static PPSSignaturePoint ViewPointToGL(CGPoint viewPoint, CGRect bounds, GLKVect
 				signatureImg = snapshot;
 			}
 		}
-	}
+	//}
 	
 	return signatureImg;
 }

@@ -69,7 +69,7 @@
 
 		[self addSubview:sign];
 
-		if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
+	/*	if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
 
 			if (_showTitleLabel) {
 				titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 24)];
@@ -112,6 +112,7 @@
 			}
 		}
 		else {
+  */
 
 			if (_showTitleLabel) {
 				titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.height - 80, 24)];
@@ -154,7 +155,7 @@
 			}
 		}
 
-	}
+//	}
 	_loaded = true;
 	_border.path = _showBorder ? [UIBezierPath bezierPathWithRect:self.bounds].CGPath : nil;
 	_border.frame = self.bounds;
