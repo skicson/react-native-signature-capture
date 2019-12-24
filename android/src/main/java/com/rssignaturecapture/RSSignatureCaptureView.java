@@ -85,7 +85,9 @@ public class RSSignatureCaptureView extends View {
 		// width and height should cover the screen
 		this.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 	}
-
+	public boolean isEmpty() {
+		return mPoints.size() < 2;
+	}
 	/**
 	* Get signature
 	*
